@@ -17,9 +17,9 @@ export default new Vuex.Store({
       const taskToMove = sourceList.splice(from, 1)[0]
       targetList.splice(to, 0, taskToMove)
     },
-    MOVE_COLUMN (state, { from, to, columnList }) {
-      const columnToMove = columnList.splice(from, 1)[0]
-      columnList.splice(to, 0, columnToMove)
+    MOVE_COLUMN (state, { from, to, board }) {
+      const columnToMove = board.columns.splice(from, 1)[0]
+      board.columns.splice(to, 0, columnToMove)
     },
     CREATE_TASK (state, { tasks, name }) {
       tasks.push({
@@ -46,8 +46,5 @@ export default new Vuex.Store({
     REMOVE_TASK (state, { index, tasksList }) {
       tasksList.splice(index, 1)
     }
-  },
-  actions: {
-
   }
 })
