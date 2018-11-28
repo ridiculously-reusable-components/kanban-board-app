@@ -1,12 +1,9 @@
 <template lang="html">
-  <div
+  <WithDragDrop
     class="task"
-    draggable
-    @dragover.prevent
-    @dragenter.prevent
     @drop.stop="moveTask($event, taskIndex, column.tasks)"
     @dragstart="pickupTask($event, taskIndex, columnIndex)"
-    @click="goToTask(task)"
+    @click.native="goToTask(task)"
   >
     <span class="w-full flex-no-shrink font-bold">{{ task.name }}</span>
     <p
@@ -15,11 +12,14 @@
     >
       {{ task.description.substr(0, 150) }}
     </p>
-  </div>
+  </WithDragDrop>
 </template>
 
 <script>
+import WithDragDrop from './WithDragDrop'
+
 export default {
+  components: { WithDragDrop },
   props: {
     task: {
       type: Object,

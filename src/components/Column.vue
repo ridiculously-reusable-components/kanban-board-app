@@ -1,10 +1,7 @@
 <template lang="html">
-  <div
-    draggable
+  <WithDragDrop
     class="column"
     @drop="moveTaskOrColumn($event, column.tasks, columnIndex)"
-    @dragover.prevent
-    @dragenter.prevent
     @dragstart.self="pickupColumn"
   >
     <div class="flex items-center mb-2 font-bold">
@@ -52,14 +49,15 @@
       placeholder="+ Enter new task"
       @keyup.enter="createTask($event, column.tasks)"
     >
-  </div>
+  </WithDragDrop>
 </template>
 
 <script>
 import Task from './Task'
+import WithDragDrop from './WithDragDrop'
 
 export default {
-  components: { Task },
+  components: { Task, WithDragDrop },
   props: {
     column: {
       type: Object,
