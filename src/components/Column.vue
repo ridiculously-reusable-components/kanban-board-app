@@ -5,23 +5,32 @@
     @drop="moveTaskOrColumn($event, column.tasks, columnIndex)"
     @dragover.prevent
     @dragenter.prevent
-    @dragstart.self="pickupColumn($event, columnIndex)"
+    @dragstart.self="pickupColumn"
   >
     <div class="flex items-center mb-2 font-bold">
       <AppIcon
         class="inline-block text-grey-dark mr-2 cursor-move"
         icon="grip-vertical"
       />
-      <template v-if="isEditingColumnIndex !== columnIndex">
+      <template v-if="!isEditingName">
         {{ column.name }}
-        <AppIcon @click="editColumnName(columnIndex, column.name)" class="ml-2 cursor-pointer" icon="edit"/>
+        <AppIcon
+          @click="editColumnName"
+          class="ml-2 cursor-pointer"
+          icon="edit"
+        />
       </template>
       <template v-else>
-        <input class="p-2 mr-2 flex-grow" v-model="tmpColumnName" @keyup.enter="saveTmpName(column)"/>
-        <AppButton @click.native="saveTmpName(column)">
+        <input
+          class="p-2 mr-2 flex-grow"
+          v-model="tmpColumnName"
+          @keyup.enter="saveTmpName"
+          @keyup.esc="cancelEdit"
+        />
+        <AppButton @click.native="saveTmpName">
           <AppIcon icon="check"/>
         </AppButton>
-        <AppButton class="ml-2" type="danger" @click.native="removeColumn(columnIndex)">
+        <AppButton class="ml-2" type="danger" @click.native="removeColumn">
           <AppIcon icon="trash"/>
         </AppButton>
       </template>
@@ -39,7 +48,7 @@
     </div>
     <input
       type="text"
-      class="block p-2 w-full bg-transparent"
+      class="block p-2 w-full bg-transparent focus:bg-white"
       placeholder="+ Enter new task"
       @keyup.enter="createTask($event, column.tasks)"
     >
@@ -67,11 +76,15 @@ export default {
   },
   data () {
     return {
-      isEditingColumnIndex: -1,
+      isEditingName: false,
       tmpColumnName: ''
     }
   },
   methods: {
+    cancelEdit () {
+      this.tmpColumnName = ''
+      this.isEditingName = false
+    },
     moveTaskOrColumn (e, tasks, $columnIndex) {
       if (e.dataTransfer.getData('type') === 'task') {
         this.moveTask(e, tasks.length, tasks)
@@ -95,29 +108,35 @@ export default {
         sourceList
       })
     },
-    pickupColumn (e, columnIndex) {
-      e.dataTransfer.setData('index', columnIndex)
+    pickupColumn (e) {
+      e.dataTransfer.setData('index', this.columnIndex)
       e.dataTransfer.setData('type', 'column')
     },
-    createTask (e, tasks) {
-      this.$store.commit('CREATE_TASK', { tasks, name: e.target.value })
+    createTask (e) {
+      this.$store.commit('CREATE_TASK', {
+        tasks: this.column.tasks,
+        name: e.target.value
+      })
       e.target.value = ''
     },
-    editColumnName (columnIndex, currentName) {
-      this.tmpColumnName = currentName
-      this.isEditingColumnIndex = columnIndex
+    editColumnName () {
+      this.tmpColumnName = this.column.name
+      this.isEditingName = true
     },
-    saveTmpName (column) {
-      this.$store.commit('UPDATE_COLUMN_NAME', { name: this.tmpColumnName, column })
+    saveTmpName () {
+      this.$store.commit('UPDATE_COLUMN_NAME', {
+        name: this.tmpColumnName,
+        column: this.column
+      })
       this.tmpColumnName = ''
-      this.isEditingColumnIndex = -1
+      this.isEditingName = false
     },
-    removeColumn (columnIndex) {
+    removeColumn () {
       this.$store.commit('REMOVE_COLUMN', {
-        columnIndex,
+        columnIndex: this.columnIndex,
         board: this.board
       })
-      this.isEditingColumnIndex = -1
+      this.isEditingName = false
     }
   }
 }
