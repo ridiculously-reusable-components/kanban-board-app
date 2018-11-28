@@ -1,9 +1,13 @@
 <template lang="html">
   <WithDragDrop
     class="task"
-    @drop.stop="moveTask($event, taskIndex, column.tasks)"
-    @dragstart="pickupTask($event, taskIndex, columnIndex)"
+    :transfer-data="{
+      taskIndex,
+      columnIndex,
+      type: 'task'
+    }"
     @click.native="goToTask(task)"
+    @drop="moveTaskOrColumn"
   >
     <span class="w-full flex-no-shrink font-bold">{{ task.name }}</span>
     <p
@@ -46,19 +50,29 @@ export default {
     goToTask (task) {
       this.$router.push({ name: 'task', params: { id: task.id } })
     },
-    moveTask (e, targetIndex, targetList) {
-      const sourceList = this.board.columns[e.dataTransfer.getData('list')].tasks
-      this.$store.commit('MOVE_TASK', {
-        from: e.dataTransfer.getData('index'),
-        to: targetIndex,
-        targetList,
-        sourceList
+    moveTaskOrColumn (transferData) {
+      if (transferData.type === 'task') {
+        this.moveTask(transferData)
+      } else {
+        this.moveColumn(transferData)
+      }
+    },
+    moveColumn ({ columnIndex }) {
+      this.$store.commit('MOVE_COLUMN', {
+        from: columnIndex,
+        to: this.columnIndex,
+        board: this.board
       })
     },
-    pickupTask (e, originalIndex, sourceListIndex) {
-      e.dataTransfer.setData('index', originalIndex)
-      e.dataTransfer.setData('list', sourceListIndex)
-      e.dataTransfer.setData('type', 'task')
+    moveTask ({ columnIndex, taskIndex }) {
+      const sourceList = this.board.columns[columnIndex].tasks
+
+      this.$store.commit('MOVE_TASK', {
+        from: taskIndex,
+        to: this.taskIndex,
+        targetList: this.column.tasks,
+        sourceList
+      })
     }
   }
 }

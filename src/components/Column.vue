@@ -1,54 +1,62 @@
 <template lang="html">
   <WithDragDrop
     class="column"
-    @drop="moveTaskOrColumn($event, column.tasks, columnIndex)"
-    @dragstart.self="pickupColumn"
+    :transfer-data="{
+      columnIndex,
+      type: 'column'
+    }"
+    @drop="moveTaskOrColumn"
   >
-    <div class="flex items-center mb-2 font-bold">
-      <AppIcon
-        class="inline-block text-grey-dark mr-2 cursor-move"
-        icon="grip-vertical"
-      />
-      <template v-if="!isEditingName">
-        {{ column.name }}
-        <AppIcon
-          @click="editColumnName"
-          class="ml-2 cursor-pointer"
-          icon="edit"
-        />
-      </template>
-      <template v-else>
-        <input
-          class="p-2 mr-2 flex-grow"
-          v-model="tmpColumnName"
-          @keyup.enter="saveTmpName"
-          @keyup.esc="cancelEdit"
-        />
-        <AppButton @click.native="saveTmpName">
-          <AppIcon icon="check"/>
-        </AppButton>
-        <AppButton class="ml-2" type="danger" @click.native="removeColumn">
-          <AppIcon icon="trash"/>
-        </AppButton>
-      </template>
-    </div>
-    <div class="list-reset">
-      <Task
-        v-for="(task, $taskIndex) of column.tasks"
-        :key="$taskIndex"
-        :task="task"
-        :task-index="$taskIndex"
-        :column-index="columnIndex"
-        :column="column"
-        :board="board"
-      />
-    </div>
-    <input
-      type="text"
-      class="block p-2 w-full bg-transparent focus:bg-white"
-      placeholder="+ Enter new task"
-      @keyup.enter="createTask($event, column.tasks)"
+    <div
+      slot-scope="{ isDragged }"
+      :class="[isDragged && 'opacity-25']"
     >
+      <div class="flex items-center mb-2 font-bold">
+        <AppIcon
+          class="inline-block text-grey-dark mr-2 cursor-move"
+          icon="grip-vertical"
+        />
+        <template v-if="!isEditingName">
+          {{ column.name }}
+          <AppIcon
+            @click="editColumnName"
+            class="ml-2 cursor-pointer"
+            icon="edit"
+          />
+        </template>
+        <template v-else>
+          <input
+            class="p-2 mr-2 flex-grow"
+            v-model="tmpColumnName"
+            @keyup.enter="saveTmpName"
+            @keyup.esc="cancelEdit"
+          />
+          <AppButton @click.native="saveTmpName">
+            <AppIcon icon="check"/>
+          </AppButton>
+          <AppButton class="ml-2" type="danger" @click.native="removeColumn">
+            <AppIcon icon="trash"/>
+          </AppButton>
+        </template>
+      </div>
+      <div class="list-reset">
+        <Task
+          v-for="(task, $taskIndex) of column.tasks"
+          :key="task.id"
+          :task="task"
+          :task-index="$taskIndex"
+          :column-index="columnIndex"
+          :column="column"
+          :board="board"
+        />
+      </div>
+      <input
+        type="text"
+        class="block p-2 w-full bg-transparent focus:bg-white"
+        placeholder="+ Enter new task"
+        @keyup.enter="createTask($event, column.tasks)"
+      >
+    </div>
   </WithDragDrop>
 </template>
 
@@ -83,32 +91,28 @@ export default {
       this.tmpColumnName = ''
       this.isEditingName = false
     },
-    moveTaskOrColumn (e, tasks, $columnIndex) {
-      if (e.dataTransfer.getData('type') === 'task') {
-        this.moveTask(e, tasks.length, tasks)
+    moveTaskOrColumn (transferData) {
+      if (transferData.type === 'task') {
+        this.moveTask(transferData)
       } else {
-        this.moveColumn(e, $columnIndex)
+        this.moveColumn(transferData)
       }
     },
-    moveColumn (e, $columnIndex) {
+    moveColumn ({ columnIndex }) {
       this.$store.commit('MOVE_COLUMN', {
-        from: e.dataTransfer.getData('index'),
-        to: $columnIndex,
+        from: columnIndex,
+        to: this.columnIndex,
         board: this.board
       })
     },
-    moveTask (e, targetIndex, targetList) {
-      const sourceList = this.board.columns[e.dataTransfer.getData('list')].tasks
+    moveTask ({ columnIndex, taskIndex }) {
+      const sourceList = this.board.columns[columnIndex].tasks
       this.$store.commit('MOVE_TASK', {
-        from: e.dataTransfer.getData('index'),
-        to: targetIndex,
-        targetList,
+        from: taskIndex,
+        to: this.column.tasks.length,
+        targetList: this.column.tasks,
         sourceList
       })
-    },
-    pickupColumn (e) {
-      e.dataTransfer.setData('index', this.columnIndex)
-      e.dataTransfer.setData('type', 'column')
     },
     createTask (e) {
       this.$store.commit('CREATE_TASK', {
