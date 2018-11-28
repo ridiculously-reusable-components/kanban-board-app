@@ -7,7 +7,7 @@
       <Column
         v-for="(column, $columnIndex) of board.columns"
         :column="column"
-        :index="$columnIndex"
+        :column-index="$columnIndex"
         :board="board"
         :key="$columnIndex"
       />

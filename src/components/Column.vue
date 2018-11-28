@@ -2,50 +2,40 @@
   <div
     draggable
     class="column"
-    @drop="moveTaskOrColumn($event, column.tasks, index)"
+    @drop="moveTaskOrColumn($event, column.tasks, columnIndex)"
     @dragover.prevent
     @dragenter.prevent
-    @dragstart.self="pickupColumn($event, index)"
+    @dragstart.self="pickupColumn($event, columnIndex)"
   >
     <div class="flex items-center mb-2 font-bold">
       <AppIcon
         class="inline-block text-grey-dark mr-2 cursor-move"
         icon="grip-vertical"
       />
-      <template v-if="isEditingColumnIndex !== index">
+      <template v-if="isEditingColumnIndex !== columnIndex">
         {{ column.name }}
-        <AppIcon @click="editColumnName(index, column.name)" class="ml-2 cursor-pointer" icon="edit"/>
+        <AppIcon @click="editColumnName(columnIndex, column.name)" class="ml-2 cursor-pointer" icon="edit"/>
       </template>
       <template v-else>
         <input class="p-2 mr-2 flex-grow" v-model="tmpColumnName" @keyup.enter="saveTmpName(column)"/>
         <AppButton @click.native="saveTmpName(column)">
           <AppIcon icon="check"/>
         </AppButton>
-        <AppButton class="ml-2" type="danger" @click.native="removeColumn(index)">
+        <AppButton class="ml-2" type="danger" @click.native="removeColumn(columnIndex)">
           <AppIcon icon="trash"/>
         </AppButton>
       </template>
     </div>
     <div class="list-reset">
-      <div
+      <Task
         v-for="(task, $taskIndex) of column.tasks"
         :key="$taskIndex"
-        class="task"
-        draggable
-        @dragover.prevent
-        @dragenter.prevent
-        @drop.stop="moveTask($event, $taskIndex, column.tasks)"
-        @dragstart="pickupTask($event, $taskIndex, index)"
-        @click="goToTask(task)"
-      >
-        <span class="w-full flex-no-shrink font-bold">{{ task.name }}</span>
-        <p
-          v-if="task.description"
-          class="w-full flex-no-shrink mt-1 text-sm"
-        >
-          {{ task.description.substr(0, 150) }}
-        </p>
-      </div>
+        :task="task"
+        :task-index="$taskIndex"
+        :column-index="columnIndex"
+        :column="column"
+        :board="board"
+      />
     </div>
     <input
       type="text"
@@ -57,13 +47,16 @@
 </template>
 
 <script>
+import Task from './Task'
+
 export default {
+  components: { Task },
   props: {
     column: {
       type: Object,
       required: true
     },
-    index: {
+    columnIndex: {
       type: Number,
       required: true
     },
@@ -102,11 +95,6 @@ export default {
         sourceList
       })
     },
-    pickupTask (e, originalIndex, sourceListIndex) {
-      e.dataTransfer.setData('index', originalIndex)
-      e.dataTransfer.setData('list', sourceListIndex)
-      e.dataTransfer.setData('type', 'task')
-    },
     pickupColumn (e, columnIndex) {
       e.dataTransfer.setData('index', columnIndex)
       e.dataTransfer.setData('type', 'column')
@@ -114,9 +102,6 @@ export default {
     createTask (e, tasks) {
       this.$store.commit('CREATE_TASK', { tasks, name: e.target.value })
       e.target.value = ''
-    },
-    goToTask (task) {
-      this.$router.push({ name: 'task', params: { id: task.id } })
     },
     editColumnName (columnIndex, currentName) {
       this.tmpColumnName = currentName
@@ -139,10 +124,6 @@ export default {
 </script>
 
 <style lang="css">
-.task {
-  @apply flex items-center flex-wrap shadow mb-2 py-2 px-2 rounded bg-white text-grey-darkest no-underline;
-}
-
 .column {
   @apply bg-grey-light p-2 mr-4 text-left shadow rounded;
   min-width: 350px;
