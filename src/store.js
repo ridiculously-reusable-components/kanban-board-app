@@ -10,7 +10,13 @@ const boards = JSON.parse(localStorage.getItem('boards')) || defaultBoards
 export default new Vuex.Store({
   plugins: [saveStatePlugin],
   state: {
-    boards
+    boards,
+    users: [
+      { id: 1, name: 'Damian', color: '#38a89d', role: 'author' },
+      { id: 2, name: 'Dariusz', color: '#5661b3', role: 'moderator' },
+      { id: 3, name: 'Jon', color: '#794acf', role: 'watcher' },
+      { id: 4, name: 'Jon', color: '#794acf', role: 'watcher' }
+    ]
   },
   mutations: {
     MOVE_TASK (state, { sourceList, targetList, from, to }) {
@@ -45,9 +51,12 @@ export default new Vuex.Store({
     },
     REMOVE_TASK (state, { index, tasksList }) {
       tasksList.splice(index, 1)
+    },
+    ASSIGN_USER_TO_TASK (state, { user, task }) {
+      task.userAssigned = user
+    },
+    UNNASSIGN_TASK (state, { task }) {
+      task.userAssigned = null
     }
-  },
-  actions: {
-
   }
 })

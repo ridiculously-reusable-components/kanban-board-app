@@ -10,17 +10,20 @@ export default [
           {
             description: '',
             name: 'first task',
-            id: uuid()
+            id: uuid(),
+            userAssigned: null
           },
           {
             description: '',
             name: 'second task',
-            id: uuid()
+            id: uuid(),
+            userAssigned: null
           },
           {
             description: '',
             name: 'and thrid',
-            id: uuid()
+            id: uuid(),
+            userAssigned: null
           }
         ]
       },
@@ -30,7 +33,8 @@ export default [
           {
             description: '',
             name: 'first task',
-            id: uuid()
+            id: uuid(),
+            userAssigned: null
           }
         ]
       },
@@ -40,7 +44,8 @@ export default [
           {
             description: '',
             name: 'first task',
-            id: uuid()
+            id: uuid(),
+            userAssigned: null
           }
         ]
       }
@@ -55,7 +60,8 @@ export default [
           {
             description: '',
             name: 'first task',
-            id: uuid()
+            id: uuid(),
+            userAssigned: null
           }
         ]
       },
@@ -65,7 +71,8 @@ export default [
           {
             description: '',
             name: 'first task',
-            id: uuid()
+            id: uuid(),
+            userAssigned: null
           }
         ]
       },
@@ -75,7 +82,8 @@ export default [
           {
             description: '',
             name: 'first task',
-            id: uuid()
+            id: uuid(),
+            userAssigned: null
           }
         ]
       }
