@@ -1,71 +1,75 @@
 <template lang="html">
-  <WithDragDrop
-    class="column"
-    :transfer-data="{
-      columnIndex,
-      type: 'column'
-    }"
-    @drop="moveTaskOrColumn"
-  >
-    <div
-      slot-scope="{ isDragged }"
-      :class="[isDragged && 'opacity-25']"
+  <Drop class="column" @drop="moveTaskOrColumn">
+    <Drag
+      :transfer-data="{
+        columnIndex,
+        type: 'column'
+      }"
+      slot-scope="{ isTargeted }"
     >
-      <div class="flex items-center mb-2 font-bold">
-        <AppIcon
-          class="inline-block text-grey-dark mr-2 cursor-move"
-          icon="grip-vertical"
-        />
-        <template v-if="!isEditingName">
-          {{ column.name }}
-          <AppIcon
-            @click="editColumnName"
-            class="ml-2 cursor-pointer"
-            icon="edit"
-          />
-        </template>
-        <template v-else>
-          <input
-            class="p-2 mr-2 flex-grow"
-            v-model="tmpColumnName"
-            @keyup.enter="saveTmpName"
-            @keyup.esc="cancelEdit"
-          />
-          <AppButton @click.native="saveTmpName">
-            <AppIcon icon="check"/>
-          </AppButton>
-          <AppButton class="ml-2" type="danger" @click.native="removeColumn">
-            <AppIcon icon="trash"/>
-          </AppButton>
-        </template>
-      </div>
-      <div class="list-reset">
-        <Task
-          v-for="(task, $taskIndex) of column.tasks"
-          :key="task.id"
-          :task="task"
-          :task-index="$taskIndex"
-          :column-index="columnIndex"
-          :column="column"
-          :board="board"
-        />
-      </div>
-      <input
-        type="text"
-        class="block p-2 w-full bg-transparent focus:bg-white"
-        placeholder="+ Enter new task"
-        @keyup.enter="createTask($event, column.tasks)"
+      <div
+        slot-scope="{ isDragged }"
+        :class="{
+          'opacity-25': isDragged
+        }"
       >
-    </div>
-  </WithDragDrop>
+        <div class="flex items-center mb-2 font-bold">
+          <AppIcon
+            class="inline-block text-grey-dark mr-2 cursor-move"
+            icon="grip-vertical"
+          />
+          <template v-if="!isEditingName">
+            {{ column.name }}
+            <AppIcon
+              @click="editColumnName"
+              class="ml-2 cursor-pointer"
+              icon="edit"
+            />
+          </template>
+          <template v-else>
+            <input
+              class="p-2 mr-2 flex-grow"
+              v-model="tmpColumnName"
+              @keyup.enter="saveTmpName"
+              @keyup.esc="cancelEdit"
+            />
+            <AppButton @click.native="saveTmpName">
+              <AppIcon icon="check"/>
+            </AppButton>
+            <AppButton class="ml-2" type="danger" @click.native="removeColumn">
+              <AppIcon icon="trash"/>
+            </AppButton>
+          </template>
+        </div>
+        <div class="list-reset">
+          <Task
+            v-for="(task, $taskIndex) of column.tasks"
+            :key="task.id"
+            :task="task"
+            :task-index="$taskIndex"
+            :column-index="columnIndex"
+            :column="column"
+            :board="board"
+          />
+        </div>
+        <input
+          type="text"
+          class="block p-2 w-full bg-transparent focus:bg-white"
+          placeholder="+ Enter new task"
+          @keyup.enter="createTask($event, column.tasks)"
+        >
+      </div>
+    </Drag>
+  </Drop>
 </template>
 
 <script>
 import Task from './Task'
-import WithDragDrop from './WithDragDrop'
+import Drag from './Drag'
+import Drop from './Drop'
 
 export default {
-  components: { Task, WithDragDrop },
+  components: { Task, Drag, Drop },
   props: {
     column: {
       type: Object,

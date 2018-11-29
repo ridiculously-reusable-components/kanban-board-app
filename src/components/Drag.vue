@@ -1,7 +1,6 @@
 <template>
   <div
     draggable
-    @drop.stop="onDrop"
     @dragover.prevent
     @dragenter.prevent
     @dragend="onDragend"
@@ -31,15 +30,11 @@ export default {
     onDrag ($event) {
       this.isDragged = true
 
+      $event.dataTransfer.effectAllowed = 'move'
       $event.dataTransfer.dropEffect = 'move'
       $event.dataTransfer.setData('payload', JSON.stringify(this.transferData))
 
       this.$emit('dragstart', $event)
-    },
-    onDrop ($event) {
-      const data = JSON.parse($event.dataTransfer.getData('payload'))
-
-      this.$emit('drop', data)
     }
   }
 }

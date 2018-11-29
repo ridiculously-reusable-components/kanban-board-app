@@ -1,29 +1,31 @@
 <template lang="html">
-  <WithDragDrop
-    class="task"
-    :transfer-data="{
-      taskIndex,
-      columnIndex,
-      type: 'task'
-    }"
-    @click.native="goToTask(task)"
-    @drop="moveTaskOrColumn"
-  >
-    <span class="w-full flex-no-shrink font-bold">{{ task.name }}</span>
-    <p
-      v-if="task.description"
-      class="w-full flex-no-shrink mt-1 text-sm"
+  <Drop @drop="moveTaskOrColumn">
+    <Drag
+      class="task"
+      :transfer-data="{
+        taskIndex,
+        columnIndex,
+        type: 'task'
+      }"
+      @click.native="goToTask(task)"
     >
-      {{ task.description.substr(0, 150) }}
-    </p>
-  </WithDragDrop>
+      <span class="w-full flex-no-shrink font-bold">{{ task.name }}</span>
+      <p
+        v-if="task.description"
+        class="w-full flex-no-shrink mt-1 text-sm"
+      >
+        {{ task.description.substr(0, 150) }}
+      </p>
+    </Drag>
+  </Drop>
 </template>
 
 <script>
-import WithDragDrop from './WithDragDrop'
+import Drag from './Drag'
+import Drop from './Drop'
 
 export default {
-  components: { WithDragDrop },
+  components: { Drag, Drop },
   props: {
     task: {
       type: Object,
