@@ -8,20 +8,25 @@
         @change="updateTaskProperty($event, 'name')"
       />
       <p class="mx-2">
-        <template v-if="task.userAssigned">
-          Assigned user:
-        </template>
-        <template v-else>
-          No user has been assigned.
-        </template>
+        Assigned user:
         <AppDropdown
-          class="ml-2"
-          text="Assign user"
+          text="None"
           :value="task.userAssigned"
           :options="users"
           label="name"
           @select="assignUser"
-        />
+        >
+          <span
+            slot="trigger"
+            class="font-bold text-teal-dark cursor-pointer"
+            slot-scope="{ open, close, displayText }"
+            tabindex="0"
+            @focus="open"
+            @blur="close"
+          >
+            {{ displayText }} <AppIcon icon="edit"/>
+          </span>
+        </AppDropdown>
       </p>
       <textarea
         placeholder="Enter task description"
@@ -38,10 +43,23 @@
         @click="closeView"
       />
       <label class="font-bold mb-2 mt-8">Actions:</label>
-      <AppButton class="mb-2">
-        Assign
-        <AppIcon class="ml-2" icon="user"/>
-      </AppButton>
+      <AppDropdown
+        text="None"
+        :value="task.userAssigned"
+        :options="users"
+        label="name"
+        @select="assignUser"
+      >
+        <AppButton
+          class="mb-2 w-full"
+          slot="trigger"
+          slot-scope="{ open, close, displayText }"
+          @focus.native="open"
+          @blur.native="close"
+        >
+          {{ displayText }} <AppIcon class="ml-2" icon="user"/>
+        </AppButton>
+      </AppDropdown>
       <AppButton type="danger" @click.native="removeTask">
         Delete
         <AppIcon class="ml-2" icon="trash"/>

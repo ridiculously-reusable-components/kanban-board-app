@@ -53,7 +53,7 @@ export default new Vuex.Store({
       tasksList.splice(index, 1)
     },
     ASSIGN_USER_TO_TASK (state, { user, task }) {
-      task.userAssigned = user
+      Vue.set(task, 'userAssigned', user)
     },
     UNNASSIGN_TASK (state, { task }) {
       task.userAssigned = null

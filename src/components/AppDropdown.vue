@@ -1,11 +1,13 @@
 <template>
   <span class="dropdown">
-    <AppButton
-      @focus.native="isOpen = true"
-      @blur.native="isOpen = false"
-    >
-      {{ displayText }}
-    </AppButton>
+    <slot name="trigger" :open="open" :close="close" :display-text="displayText">
+      <AppButton
+        @focus.native="isOpen = true"
+        @blur.native="isOpen = false"
+      >
+        {{ displayText }}
+      </AppButton>
+    </slot>
     <ul
       v-if="isOpen"
       class="dropdown-list"
@@ -17,7 +19,9 @@
         :class="{ 'dropdown-item-active': option === value }"
         @mousedown="select(option)"
       >
-        {{ label ? option[label] : option }}
+        <slot name="option" :option="option">
+          {{ label ? option[label] : option }}
+        </slot>
       </li>
     </ul>
   </span>
@@ -58,6 +62,12 @@ export default {
     select (option) {
       this.$emit('select', option)
       this.isOpen = false
+    },
+    open () {
+      this.isOpen = true
+    },
+    close () {
+      this.isOpen = false
     }
   }
 }
@@ -69,9 +79,8 @@ export default {
 }
 
 .dropdown-list {
-  @apply absolute pin-l list-reset bg-white z-20 border shadow;
+  @apply absolute pin-l pin-b list-reset bg-white z-20 border shadow;
   transform: translateY(100%);
-  bottom: -10px;
 }
 
 .dropdown-item {
@@ -83,10 +92,6 @@ export default {
 }
 
 .dropdown-item-active {
-  @apply bg-teal-light text-white;
-}
-
-.dropdown-item-active:hover {
-  @apply bg-red-dark text-white;
+  @apply font-bold;
 }
 </style>
