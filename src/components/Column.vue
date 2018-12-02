@@ -20,11 +20,6 @@
           />
           <template v-if="!isEditingName">
             {{ column.name }}
-            <AppIcon
-              @click="editColumnName"
-              class="ml-2 cursor-pointer"
-              icon="edit"
-            />
           </template>
           <template v-else>
             <input
@@ -40,6 +35,11 @@
               <AppIcon icon="trash"/>
             </AppButton>
           </template>
+          <AppIcon
+            @click="editColumnName"
+            class="ml-2 cursor-pointer"
+            icon="edit"
+          />
         </div>
         <div class="list-reset">
           <Task

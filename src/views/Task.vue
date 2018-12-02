@@ -30,7 +30,7 @@
       </p>
       <textarea
         placeholder="Enter task description"
-        class="relative bg-transparent px-2 border mt-2 h-64 border-none leading-normal"
+        class="relative bg-transparent px-2 border mt-2 h-64 border-none leading-normal w-full"
         :value="task.description"
         @change="updateTaskProperty($event, 'description')"
         @keyup.enter="updateDescription"
@@ -53,12 +53,27 @@
         <AppButton
           class="mb-2 w-full"
           slot="trigger"
-          slot-scope="{ open, close, displayText }"
-          @focus.native="open"
-          @blur.native="close"
+          slot-scope="{ open, close, displayText, pointerDown, pointerUp, selectPointedOption }"
+          @focus="open"
+          @blur="close"
+          @keyup.down="pointerDown"
+          @keyup.up="pointerUp"
+          @keyup.enter="selectPointedOption"
         >
           {{ displayText }} <AppIcon class="ml-2" icon="user"/>
         </AppButton>
+        <li
+          slot-scope="{ option, select, pointer, index }"
+          slot="option"
+          class="dropdown-item"
+          :class="{
+            'dropdown-item-active': option === task.userAssigned,
+            'pointer-highlight': pointer === index
+          }"
+          @mousedown="select(option)"
+        >
+          {{ option.name }}
+        </li>
       </AppDropdown>
       <AppButton type="danger" @click.native="removeTask">
         Delete
@@ -69,10 +84,7 @@
 </template>
 
 <script>
-import AppDropdown from '../components/AppDropdown'
-
 export default {
-  components: { AppDropdown },
   computed: {
     board () {
       return this.$store.state.boards.find(board => board.name === this.$route.params.name)
@@ -125,5 +137,9 @@ export default {
 .task-view {
   @apply relative flex flex-row bg-white pin mx-4 m-32 mx-auto py-4 text-left rounded shadow;
   max-width: 700px;
+}
+
+.pointer-highlight {
+  @apply bg-grey-lighter;
 }
 </style>

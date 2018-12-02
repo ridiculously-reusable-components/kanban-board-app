@@ -1,9 +1,18 @@
 <template>
   <span class="dropdown">
-    <slot name="trigger" :open="open" :close="close" :display-text="displayText">
+    <slot
+      name="trigger"
+      :open="open"
+      :close="close"
+      :display-text="displayText"
+      :select="select"
+      :pointer-up="pointerUp"
+      :pointer-down="pointerDown"
+      :select-pointed-option="selectPointedOption"
+    >
       <AppButton
-        @focus.native="isOpen = true"
-        @blur.native="isOpen = false"
+        @focus="isOpen = true"
+        @blur="isOpen = false"
       >
         {{ displayText }}
       </AppButton>
@@ -12,15 +21,15 @@
       v-if="isOpen"
       class="dropdown-list"
     >
-      <li
-        v-for="(option, index) of options"
-        :key="index"
-        class="dropdown-item"
-        :class="{ 'dropdown-item-active': option === value }"
-        @mousedown="select(option)"
-      >
-        <slot name="option" :option="option">
-          {{ label ? option[label] : option }}
+      <li v-for="(option, index) of options" :key="index">
+        <slot name="option" :option="option" :select="select" :pointer="pointer" :index="index">
+          <div
+            class="dropdown-item"
+            :class="{ 'dropdown-item-active': option === value }"
+            @mousedown="select(option)"
+          >
+            {{ label ? option[label] : option }}
+          </div>
         </slot>
       </li>
     </ul>
@@ -46,7 +55,8 @@ export default {
   },
   data () {
     return {
-      isOpen: false
+      isOpen: false,
+      pointer: 0
     }
   },
   computed: {
@@ -68,6 +78,19 @@ export default {
     },
     close () {
       this.isOpen = false
+    },
+    pointerUp () {
+      this.pointer = this.pointer === 0
+        ? this.options.length - 1
+        : this.pointer - 1
+    },
+    pointerDown () {
+      this.pointer = this.options.length - 1 === this.pointer
+        ? 0
+        : this.pointer + 1
+    },
+    selectPointedOption () {
+      this.select(this.options[this.pointer])
     }
   }
 }
