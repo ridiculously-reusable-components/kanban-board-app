@@ -10,12 +10,14 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Board
-    },
-    {
-      path: 'task/:id',
-      name: 'task',
-      component: Task
+      component: Board,
+      children: [
+        {
+          path: 'task/:id',
+          name: 'task',
+          component: Task
+        }
+      ]
     }
   ]
 })

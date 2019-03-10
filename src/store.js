@@ -17,6 +17,18 @@ export default new Vuex.Store({
       { id: 3, name: 'Adam', color: '#794acf', role: 'watcher' }
     ]
   },
+  getters: {
+    getTask (state, getters) {
+      return id => getters.getColumn(id).tasks
+        .find(task => task.id === id)
+    },
+    getColumn (state) {
+      return id => state.board.columns
+        .find(column => column.tasks
+          .find(task => task.id === id)
+        )
+    }
+  },
   mutations: {
     CREATE_TASK (state, { tasks, name }) {
       tasks.push({
