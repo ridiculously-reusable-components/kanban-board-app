@@ -45,6 +45,18 @@
           @keyup.enter="createTask($event, column.tasks)"
         >
       </div>
+
+      <div class="column flex">
+        <input
+          class="p-2 mr-2 flex-grow"
+          placeholder="New column name"
+          v-model="newColumnName"
+          @keyup.enter="createNewColumn"
+        />
+        <AppButton @click.native="createNewColumn">
+          <AppIcon icon="plus"/>
+        </AppButton>
+      </div>
     </div>
 
     <div
@@ -61,6 +73,11 @@
 import { mapState } from 'vuex'
 
 export default {
+  data () {
+    return {
+      newColumnName: ''
+    }
+  },
   computed: {
     ...mapState(['board']),
     isTaskOpen () {
@@ -72,6 +89,13 @@ export default {
       this.$store.commit('CREATE_TASK', { tasks, name: e.target.value })
 
       e.target.value = ''
+    },
+    createNewColumn () {
+      this.$store.commit('CREATE_NEW_COLUMN', {
+        name: this.newColumnName,
+        board: this.board
+      })
+      this.newColumnName = ''
     },
     goToTask (task) {
       this.$router.push({ name: 'task', params: { id: task.id } })
