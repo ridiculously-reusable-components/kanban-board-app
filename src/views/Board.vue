@@ -1,12 +1,24 @@
 <template>
   <div class="board">
+    <h2 class="block text-left text-white mb-4">
+      {{ board.name }}
+    </h2>
+    <div class="flex flex-row items-start">
 
+      <pre>
+        {{ board }}
+      </pre>
+    </div>
   </div>
 </template>
 
 <script>
-export default {
+import { mapState } from 'vuex'
 
+export default {
+  computed: {
+    ...mapState(['board'])
+  }
 }
 </script>
 
