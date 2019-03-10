@@ -1,8 +1,5 @@
 <template>
   <div id="app">
-    <div class="pin-t pin-r fixed mr-4 mt-4 py-1 text-lg">
-      <router-link class="no-underline text-white" to="/">Change board</router-link>
-    </div>
     <router-view/>
   </div>
 </template>
