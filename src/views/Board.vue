@@ -18,9 +18,15 @@
             :key="$taskIndex"
             class="task"
           >
-            <pre>
-              {{ task }}
-            </pre>
+            <span class="w-full flex-no-shrink font-bold">
+              {{ task.name }}
+            </span>
+            <p
+              v-if="task.description"
+              class="w-full flex-no-shrink mt-1 text-sm"
+            >
+              {{ task.description.substr(0, 150) }}
+            </p>
           </div>
         </div>
       </div>
