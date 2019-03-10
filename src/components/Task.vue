@@ -1,25 +1,27 @@
 <template lang="html">
-  <div
-    class="task"
-    draggable
-    @dragover.prevent
-    @dragenter.prevent
-    @drop.stop="moveTask($event, column.tasks, taskIndex)"
-    @dragstart="pickupTask($event, taskIndex, columnIndex)"
-    @click="goToTask(task)"
-  >
-    <span class="w-full flex-no-shrink font-bold">{{ task.name }}</span>
-    <p
-      v-if="task.description"
-      class="w-full flex-no-shrink mt-1 text-sm"
+  <Drop @drop="moveTask">
+    <Drag
+      class="task"
+      :transferData="{ taskIndex, columnIndex }"
+      @click="goToTask(task)"
     >
-      {{ task.description.substr(0, 150) }}
-    </p>
-  </div>
+      <span class="w-full flex-no-shrink font-bold">{{ task.name }}</span>
+      <p
+        v-if="task.description"
+        class="w-full flex-no-shrink mt-1 text-sm"
+      >
+        {{ task.description.substr(0, 150) }}
+      </p>
+    </Drag>
+  </Drop>
 </template>
 
 <script>
+import Drag from './Drag'
+import Drop from './Drop'
+
 export default {
+  components: { Drag, Drop },
   props: {
     task: {
       type: Object,
@@ -46,20 +48,15 @@ export default {
     goToTask (task) {
       this.$router.push({ name: 'task', params: { id: task.id } })
     },
-    moveTask (e, tasks, targetIndex) {
-      const sourceList = this.board.columns[e.dataTransfer.getData('source-list-index')].tasks
+    moveTask ({ columnIndex, taskIndex }) {
+      const sourceList = this.board.columns[columnIndex].tasks
 
       this.$store.commit('MOVE_TASK', {
-        taskIndex: e.dataTransfer.getData('task-index'),
-        targetList: tasks,
+        taskIndex: taskIndex,
+        targetList: this.column.tasks,
         sourceList,
-        targetIndex
+        targetIndex: this.taskIndex
       })
-    },
-    pickupTask (e, taskIndex, sourceListIndex) {
-      e.dataTransfer.setData('task-index', taskIndex)
-      e.dataTransfer.setData('source-list-index', sourceListIndex)
-      e.dataTransfer.setData('type', 'task')
     }
   }
 }
