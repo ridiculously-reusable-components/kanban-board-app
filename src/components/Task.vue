@@ -2,7 +2,7 @@
   <Drop @drop="moveTask">
     <Drag
       class="task"
-      :transferData="{ taskIndex, columnIndex }"
+      :transferData="{ taskIndex, columnIndex, type: 'task' }"
       @click="goToTask(task)"
     >
       <span class="w-full flex-no-shrink font-bold">{{ task.name }}</span>
