@@ -11,27 +11,15 @@
     </div>
 
     <div class="list-reset">
-      <div
+      <Task
         v-for="(task, $taskIndex) of column.tasks"
         :key="$taskIndex"
-        class="task"
-        draggable
-        @dragover.prevent
-        @dragenter.prevent
-        @drop.stop="moveTask($event, column.tasks, $taskIndex)"
-        @dragstart="pickupTask($event, $taskIndex, columnIndex)"
-        @click="goToTask(task)"
-      >
-        <span class="w-full flex-no-shrink font-bold">
-          {{ task.name }}
-        </span>
-        <p
-          v-if="task.description"
-          class="w-full flex-no-shrink mt-1 text-sm"
-        >
-          {{ task.description.substr(0, 150) }}
-        </p>
-      </div>
+        :task="task"
+        :task-index="$taskIndex"
+        :column-index="columnIndex"
+        :column="column"
+        :board="board"
+      />
     </div>
 
     <input
@@ -44,7 +32,10 @@
 </template>
 
 <script>
+import Task from './Task'
+
 export default {
+  components: { Task },
   props: {
     column: {
       type: Object,
@@ -106,10 +97,6 @@ export default {
 </script>
 
 <style lang="css">
-.task {
-  @apply flex items-center flex-wrap shadow mb-2 py-2 px-2 rounded bg-white text-grey-darkest no-underline;
-}
-
 .column {
   @apply bg-grey-light p-2 mr-4 text-left shadow rounded;
   min-width: 350px;
