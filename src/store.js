@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import defaultBoard from './default-board'
+import { uuid } from './utils'
 
 Vue.use(Vuex)
 
@@ -15,5 +16,13 @@ export default new Vuex.Store({
       { id: 3, name: 'Adam', color: '#794acf', role: 'watcher' }
     ]
   },
-  mutations: {}
+  mutations: {
+    CREATE_TASK (state, { tasks, name }) {
+      tasks.push({
+        name,
+        id: uuid(),
+        description: ''
+      })
+    }
+  }
 })
