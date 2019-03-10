@@ -23,6 +23,9 @@
             :key="$taskIndex"
             class="task"
             draggable
+            @dragover.prevent
+            @dragenter.prevent
+            @drop.stop="moveTask($event, column.tasks, $taskIndex)"
             @dragstart="pickupTask($event, $taskIndex, $columnIndex)"
             @click="goToTask(task)"
           >
@@ -111,18 +114,19 @@ export default {
     },
     moveTaskOrColumn (e, tasks, $columnIndex) {
       if (e.dataTransfer.getData('type') === 'task') {
-        this.moveTask(e, tasks)
+        this.moveTask(e, tasks, tasks.length)
       } else {
         this.moveColumn(e, $columnIndex)
       }
     },
-    moveTask (e, tasks) {
+    moveTask (e, tasks, targetIndex) {
       const sourceList = this.board.columns[e.dataTransfer.getData('source-list-index')].tasks
 
       this.$store.commit('MOVE_TASK', {
         taskIndex: e.dataTransfer.getData('task-index'),
         targetList: tasks,
-        sourceList
+        sourceList,
+        targetIndex
       })
     },
     moveColumn (e, $columnIndex) {
