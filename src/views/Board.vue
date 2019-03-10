@@ -8,9 +8,21 @@
         v-for="(column, $columnIndex) of board.columns"
         :key="$columnIndex"
       >
-        <pre>
-          {{ column }}
-        </pre>
+        <div class="flex items-center mb-2 font-bold">
+          {{ column.name }}
+        </div>
+
+        <div class="list-reset">
+          <div
+            v-for="(task, $taskIndex) of column.tasks"
+            :key="$taskIndex"
+            class="task"
+          >
+            <pre>
+              {{ task }}
+            </pre>
+          </div>
+        </div>
       </div>
     </div>
   </div>
