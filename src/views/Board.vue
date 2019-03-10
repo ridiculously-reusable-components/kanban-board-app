@@ -4,10 +4,14 @@
       {{ board.name }}
     </h2>
     <div class="flex flex-row items-start">
-
-      <pre>
-        {{ board }}
-      </pre>
+      <div class="column"
+        v-for="(column, $columnIndex) of board.columns"
+        :key="$columnIndex"
+      >
+        <pre>
+          {{ column }}
+        </pre>
+      </div>
     </div>
   </div>
 </template>
