@@ -24,9 +24,6 @@ git clone git@github.com:ridiculously-reusable-components/kanban-board-app.git
 # Change directories to workshop resources
 cd kanban-board-app
 
-# (Optional) Grab all remote branches and save it locally
-git pull -all
-
 # Install dependencies
 npm install
 
