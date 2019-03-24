@@ -5,13 +5,13 @@
       <nav>
         <ul class="main-header__nav">
           <li class="main-header__nav-item">
-            <router-link to="/">Home</router-link>
+            <router-link class="main-header__nav-link" to="/">Home</router-link>
           </li>
           <li class="main-header__nav-item">
-            <router-link to="/workspace">Workspace</router-link>
+            <router-link class="main-header__nav-link" to="/workspace">Workspace</router-link>
           </li>
           <li class="main-header__nav-item">
-            <router-link to="/">Change board</router-link>
+            <router-link class="main-header__nav-link" to="/">Change board</router-link>
           </li>
         </ul>
       </nav>
@@ -48,16 +48,21 @@ export default {
 }
 
 .main-header {
-  background-color: #3ad6c7;
+  background-color: #19c2b1;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 10px;
+  padding: 20px 20px;
 }
 
 .main-header__nav {
   display: flex;
   list-style: none;
+}
+
+.main-header__link {
+  color: white;
+  text-decoration: none;
 }
 
 .main-header__nav-item {

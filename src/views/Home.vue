@@ -11,16 +11,16 @@ export default {
       <nav>
         <ul class="main-header__nav">
           <li class="main-header__nav-item">
-            <router-link to="/">Home</router-link>
+            <router-link class="main-header__nav-link" to="/">Home</router-link>
           </li>
           <li class="main-header__nav-item">
-            <router-link to="/pricing">Pricing</router-link>
+            <router-link class="main-header__nav-link" to="/pricing">Pricing</router-link>
           </li>
           <li class="main-header__nav-item">
-            <router-link to="/workspace">Workspace</router-link>
+            <router-link class="main-header__nav-link" to="/workspace">Workspace</router-link>
           </li>
           <li class="main-header__nav-item">
-            <router-link to="/">Change board</router-link>
+            <router-link class="main-header__nav-link" to="/">Change board</router-link>
           </li>
         </ul>
       </nav>
@@ -34,7 +34,7 @@ export default {
             <button class="button">Go to Your Workspace</button>
           </div>
           <div class="hero__right">
-            <img src="../assets/homeHero.png" alt="">
+            <img src="../assets/undraw_laravel_and_vue.svg" alt="" />
           </div>
         </div>
       </section>
@@ -46,14 +46,14 @@ export default {
             <button class="button">Get started</button>
           </div>
           <div class="section__image">
-            <img src="../assets/homeSection1.png" alt="">
+            <img src="../assets/undraw_team_work.svg" alt="" />
           </div>
         </div>
       </section>
       <section class="section">
         <div class="section__content">
           <div class="section__image">
-            <img src="../assets/homeSection2.png" alt="">
+            <img src="../assets/undraw_marketing.svg" alt="" />
           </div>
           <div class="section__text">
             <h2 class="section__title">Information at a glance</h2>
@@ -66,7 +66,7 @@ export default {
           <div class="text-center">
             <h2 class="section__title">See how it works</h2>
             <p class="section__text">For from idea to action in seconds with the intuitively simple boards, lists and cards.</p>
-            <img src="../assets/homeCarousel.png" alt="">
+            <img src="../assets/undraw_task.svg" alt="" />
           </div>
         </div>
       </section>
@@ -78,19 +78,19 @@ export default {
           </div>
           <section class="section__content">
             <div>
-              <img src="../assets/homeFeature1.png" alt="">
+              <img src="../assets/undraw_creative_team.svg" alt="" />
               <h3>The Workflow Playbook</h3>
               <p>It's easy to get up and running with kanban boards. We've collected all of the boards and tools you need to success in one handy resource.</p>
               <button class="button">Make a Game Plan</button>
             </div>
             <div>
-              <img src="../assets/homeFeature2.png" alt="">
+              <img src="../assets/undraw_done.svg" alt="" />
               <h3>A Productivity Platform</h3>
               <p>Integrate the apps your team already uses directly with your workflow. Enhancements turn kanban boards into living applications to meety our team's unique business needs.</p>
               <button class="button">Enhance Your Workflow</button>
             </div>
             <div>
-              <img src="../assets/homeFeature3.png" alt="">
+              <img src="../assets/undraw_files_sent.svg" alt="" />
               <h3>Always in Sync</h3>
               <p>No matter where you are, kanban b oards stay in sync across all of your devices. Collaborate with your team anywhere, from sitting on the bus to sitting on the beach.</p>
               <button class="button">Available on App Store</button>
@@ -114,12 +114,15 @@ export default {
         </section>
       </section>
     </div>
+    <footer>
+      <small>Thanks to <a href="https://undraw.co/illustrations">Undraw</a> for the great illustrations!</small>
+    </footer>
   </main>
 </template>
 
-<style media="screen">
+<style media="screen" lang="scss">
 .main-header {
-  background-color: #3ad6c7;
+  background-color: #19c2b1;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -135,13 +138,23 @@ export default {
   padding: 0 10px;
 }
 
+.main-header__nav-link {
+  color: #fff;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 .logo {
   font-size: 1.5rem;
   margin-bottom: 0;
+  color: #fff;
 }
 
 .hero {
-  background-color: green;
+  background-color: #19c2b1;
   color: white;
 }
 
@@ -186,6 +199,10 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.section__content > *:first-child {
+  margin-right: 60px;
 }
 
 .section__content--column {
