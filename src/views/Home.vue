@@ -66,43 +66,43 @@ export default {
           <div class="text-center">
             <h2 class="section__title">See how it works</h2>
             <p class="section__text">For from idea to action in seconds with the intuitively simple boards, lists and cards.</p>
-            <img src="../assets/undraw_task.svg" alt="" />
+            <img class="single-image" src="../assets/undraw_task.svg" alt="" />
           </div>
         </div>
       </section>
       <section class="section">
         <div class="section__content section__content--column">
-          <div>
-            <h2>Kanan boards your way</h2>
-            <p>Use kanban boards the way you work best. This app has got the flexibility and features to fit any working style.</p>
+          <div class="text-center">
+            <h2 class="section__title">Kanban boards your way</h2>
+            <p class="section__text">Use kanban boards the way you work best. This app has got the flexibility and features to fit any working style. And if you need something we don't have, we want to hear from you!</p>
           </div>
-          <section class="section__content">
+          <section class="subsection">
             <div>
-              <img src="../assets/undraw_creative_team.svg" alt="" />
-              <h3>The Workflow Playbook</h3>
-              <p>It's easy to get up and running with kanban boards. We've collected all of the boards and tools you need to success in one handy resource.</p>
+              <img class="subsection__image" src="../assets/undraw_creative_team.svg" alt="" />
+              <h3 class="subsection__title">The Workflow Playbook</h3>
+              <p class="subsection__text">It's easy to get up and running with kanban boards. We've collected all of the boards and tools you need to success in one handy resource.</p>
               <button class="button">Make a Game Plan</button>
             </div>
             <div>
-              <img src="../assets/undraw_done.svg" alt="" />
-              <h3>A Productivity Platform</h3>
-              <p>Integrate the apps your team already uses directly with your workflow. Enhancements turn kanban boards into living applications to meety our team's unique business needs.</p>
+              <img class="subsection__image" src="../assets/undraw_done.svg" alt="" />
+              <h3 class="subsection__title">A Productivity Platform</h3>
+              <p class="subsection__text">Integrate the apps your team already uses directly with your workflow. Enhancements turn kanban boards into living applications to meety our team's unique business needs.</p>
               <button class="button">Enhance Your Workflow</button>
             </div>
             <div>
-              <img src="../assets/undraw_files_sent.svg" alt="" />
-              <h3>Always in Sync</h3>
-              <p>No matter where you are, kanban b oards stay in sync across all of your devices. Collaborate with your team anywhere, from sitting on the bus to sitting on the beach.</p>
+              <img class="subsection__image" src="../assets/undraw_files_sent.svg" alt="" />
+              <h3 class="subsection__title">Always in Sync</h3>
+              <p class="subsection__text">No matter where you are, kanban b oards stay in sync across all of your devices. Collaborate with your team anywhere, from sitting on the bus to sitting on the beach.</p>
               <button class="button">Available on App Store</button>
               <button class="button">Availabe for Google Play</button>
             </div>
           </section>
         </div>
-        <section class="section">
+        <section class="section section--highlight">
           <div class="section__content section__content--column">
             <h2 class="section__title">Work Smarter with Kanban Boards</h2>
             <p class="section__text">Companies of all shapes and sizes uses kanban boards.</p>
-            <button class="button">Find out how --></button>
+            <button class="button">Find out more --></button>
           </div>
         </section>
         <section class="section">
@@ -156,6 +156,7 @@ export default {
 .hero {
   background-color: #19c2b1;
   color: white;
+  padding: 30px 0;
 }
 
 .hero__content {
@@ -168,13 +169,14 @@ export default {
 
 .hero__title {
   font-size: 2.25rem;
-  line-height: 1;
+  line-height: 1.1;
   margin-bottom: 15px;
 }
 
 .hero__text {
   font-size: 1.5rem;
   margin-bottom: 15px;
+  line-height: 1.3;
 }
 
 .hero__left {
@@ -192,10 +194,19 @@ export default {
 }
 
 
+.section--highlight {
+  background: linear-gradient(180deg, rgb(93, 179, 163) 0%, rgb(93, 145, 121) 100%);
+  border-radius: 12px;
+  color: white;
+  padding: 30px;
+  width: 960px;
+  margin: 0 auto;
+}
+
 .section__content {
   max-width: 1024px;
   margin: 0 auto;
-  padding: 20px 0;
+  padding: 60px 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -225,7 +236,35 @@ export default {
   flex: 5;
 }
 
+.subsection {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 60px;
+}
+
+.subsection__title {
+  font-size: 1.5rem;
+  line-height: 1;
+  margin-bottom: 15px;
+}
+
+.subsection__text {
+  font-size: 1.1rem;
+  line-height: 1.4;
+  margin-bottom: 15px;
+}
+
+.subsection__image {
+  margin-bottom: 30px;
+  height: 240px;
+}
+
 .text-center {
   text-align: center;
+}
+
+.single-image {
+  width: 600px;
+  margin-top: 2rem;
 }
 </style>
