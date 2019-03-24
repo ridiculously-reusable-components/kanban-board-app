@@ -31,22 +31,22 @@ export default {
         <p class="subhero__text">Trusted by millions, kanban boards power teams all around the world. Explore which option is right for you. </p>
       </section>
       <div class="price-chart">
-        <section class="price-chat__header">
-          <h3 class="price-chat__header-title">Pricing Models</h3>
+        <section class="price-chart__header">
+          <h3 class="price-chart__header-title">Pricing Models</h3>
           <div class="price-row">
-            <div class="price-chat__header-item">
-              <h4 class="price-chat__header-type">Free</h4>
-              <p class="price-chat__header-price">$0 per user per month forever</p>
+            <div class="price-chart__header-item">
+              <h4 class="price-chart__header-type">Free</h4>
+              <p class="price-chart__header-price">$0 per user per month forever</p>
               <a class="button" href="#">Get Started</a>
             </div>
-            <div class="price-chat__header-item">
-              <h4 class="price-chat__header-type">Business Class</h4>
-              <p class="price-chat__header-price">$9.99 per user per month</p>
+            <div class="price-chart__header-item">
+              <h4 class="price-chart__header-type">Business Class</h4>
+              <p class="price-chart__header-price">$9.99 per user per month</p>
               <a class="button" href="#">Learn More</a>
             </div>
-            <div class="price-chat__header-item">
-              <h4 class="price-chat__header-type">Enterprise</h4>
-              <p class="price-chat__header-price">$20.83 per user per month</p>
+            <div class="price-chart__header-item">
+              <h4 class="price-chart__header-type">Enterprise</h4>
+              <p class="price-chart__header-price">$20.83 per user per month</p>
               <a class="button" href="#">Learn More</a>
             </div>
           </div>
@@ -120,19 +120,19 @@ export default {
               </ul>
             </div>
           </div>
-          <section class="price-chat__header">
+        </section>
+        <section class="price-chart__footer">
           <div class="price-row">
-            <div class="price-chat__header-item">
+            <div class="price-chart__footer-item">
               <a class="button" href="#">Get Started</a>
             </div>
-            <div class="price-chat__header-item">
+            <div class="price-chart__footer-item">
               <a class="button" href="#">Learn More</a>
             </div>
-            <div class="price-chat__header-item">
+            <div class="price-chart__footer-item">
               <a class="button" href="#">Learn More</a>
             </div>
           </div>
-        </section>
         </section>
       </div>
     </div>
@@ -234,7 +234,20 @@ export default {
   margin: 0 auto;
 }
 
-.price-chat__header {
+.price-chart__footer {
+  background: linear-gradient(180deg, rgb(98, 211, 191) 0%, rgb(52, 157, 108) 100%);
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  color: white;
+  padding: 30px;
+  margin: 0 auto;
+}
+
+.price-chart__footer-item {
+  text-align: center;
+}
+
+.price-chart__header {
   background: linear-gradient(180deg, rgb(98, 211, 191) 0%, rgb(52, 157, 108) 100%);
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
@@ -243,22 +256,22 @@ export default {
   margin: 0 auto;
 }
 
-.price-chat__header-item {
+.price-chart__header-item {
   text-align: center;
 }
 
-.price-chat__header-title {
+.price-chart__header-title {
   font-size: 1.5rem;
   text-align: center;
   margin-bottom: 30px;
 }
 
-.price-chat__header-price {
+.price-chart__header-price {
   font-size: 1.1rem;
   margin-bottom: 10px;
 }
 
-.price-chat__header-type {
+.price-chart__header-type {
   font-size: 1.3rem;
   margin-bottom: 10px;
 }
