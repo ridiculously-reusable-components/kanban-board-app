@@ -4,6 +4,7 @@
       class="board-item"
       v-for="board of boards"
       :to="{ name: 'board', params: { name: board.name } }"
+      :key="board.name"
     >
       {{ board.name }}
     </router-link>
