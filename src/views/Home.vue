@@ -28,7 +28,7 @@ export default {
     <div>
       <section class="hero">
         <div class="hero__content">
-          <div class="hero__left">
+          <div class="hero__left mr60">
             <h2 class="hero__title">Kanban boards let you visualize your work to help you get more done.</h2>
             <p class="hero__text">Board, lists, and cards enable you to organize your projects in a fun, flexible, and rewarding way.</p>
             <button class="button">Go to Your Workspace</button>
@@ -40,7 +40,7 @@ export default {
       </section>
       <section class="section">
         <div class="section__content">
-          <div class="section__text">
+          <div class="section__text mr60">
             <h2 class="section__title">Work with any team</h2>
             <p class="section__text">Wheter it's for work, a side project, or even the next family vacation, kanban boards can help you and yoru team organized.</p>
             <button class="button">Get started</button>
@@ -52,7 +52,7 @@ export default {
       </section>
       <section class="section">
         <div class="section__content">
-          <div class="section__image">
+          <div class="section__image mr60">
             <img src="../assets/undraw_marketing.svg" alt="" />
           </div>
           <div class="section__text">
@@ -114,13 +114,21 @@ export default {
         </section>
       </section>
     </div>
-    <footer>
+    <footer class="footer">
       <small>Thanks to <a href="https://undraw.co/illustrations">Undraw</a> for the great illustrations!</small>
     </footer>
   </main>
 </template>
 
 <style media="screen" lang="scss">
+.footer {
+  max-width: 1024px;
+  text-align: center;
+  margin: 0 auto;
+  padding: 30px 0;
+}
+
+
 .main-header {
   background-color: #19c2b1;
   display: flex;
@@ -212,10 +220,6 @@ export default {
   justify-content: center;
 }
 
-.section__content > *:first-child {
-  margin-right: 60px;
-}
-
 .section__content--column {
   flex-direction: column;
 }
@@ -266,5 +270,9 @@ export default {
 .single-image {
   width: 600px;
   margin-top: 2rem;
+}
+
+.mr60 {
+  margin-right: 60px;
 }
 </style>
