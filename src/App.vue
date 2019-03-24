@@ -1,6 +1,18 @@
+<script>
+export default {
+  name: "KanbanBoardApp",
+  data () {
+    return {
+      authenticated: false
+    }
+  }
+}
+</script>
+
+
 <template>
   <div id="app">
-    <router-view/>
+    <router-view />
   </div>
 </template>
 

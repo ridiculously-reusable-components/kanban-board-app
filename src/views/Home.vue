@@ -1,3 +1,9 @@
+<script>
+export default {
+  name: "HomePage"
+}
+</script>
+
 <template>
   <main>
     <header class="main-header">
@@ -67,12 +73,6 @@
     </div>
   </main>
 </template>
-
-<script>
-export default {
-
-}
-</script>
 
 <style media="screen">
 .main-header {
