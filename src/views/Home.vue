@@ -5,13 +5,16 @@
       <nav>
         <ul class="main-header__nav">
           <li class="main-header__nav-item">
-            <router-link class="no-underline" to="/">Home</router-link>
+            <router-link to="/">Home</router-link>
           </li>
           <li class="main-header__nav-item">
-            <router-link class="no-underline" to="/workspace">Workspace</router-link>
+            <router-link to="/pricing">Pricing</router-link>
           </li>
           <li class="main-header__nav-item">
-            <router-link class="no-underline" to="/">Change board</router-link>
+            <router-link to="/workspace">Workspace</router-link>
+          </li>
+          <li class="main-header__nav-item">
+            <router-link to="/">Change board</router-link>
           </li>
         </ul>
       </nav>
