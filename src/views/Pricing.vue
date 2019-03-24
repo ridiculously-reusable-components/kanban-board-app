@@ -183,11 +183,11 @@ export default {
 }
 
 .feature{
-  border: 1px solid rgb(15, 187, 136);
+  border: 1px solid #19c2b1;
   border-right: 0;
 
   &:last-child {
-    border-right: 1px solid rgb(15, 187, 136);
+    border-right: 1px solid #19c2b1;
   }
 }
 
@@ -202,7 +202,7 @@ export default {
 .feature-list-item {
   text-align: center;
   padding: 10px;
-  border-bottom: 1px solid rgb(15, 187, 136);
+  border-bottom: 1px solid #19c2b1;
 
   &:last-child {
     border-bottom: 0;
@@ -236,7 +236,7 @@ export default {
 }
 
 .price-chart__footer {
-  background: linear-gradient(180deg, rgb(98, 211, 191) 0%, rgb(52, 157, 108) 100%);
+  background: linear-gradient(180deg, #19c2b1 0%, #16ae9f 100%);
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
   color: white;
@@ -249,7 +249,7 @@ export default {
 }
 
 .price-chart__header {
-  background: linear-gradient(180deg, rgb(98, 211, 191) 0%, rgb(52, 157, 108) 100%);
+  background: linear-gradient(180deg, #19c2b1 0%, #16ae9f 100%);
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
   color: white;
@@ -284,8 +284,8 @@ export default {
 }
 
 .header-row {
-  background-color: #d2ebdc;
-  color: #6db982;
+  background-color: #c9f7f2;
+  color: #19c2b1;
   font-size: 18px;
   font-weight: 500;
   line-height: 1;

@@ -214,7 +214,7 @@ export default {
 }
 
 .section--highlight {
-  background: linear-gradient(180deg, rgb(93, 179, 163) 0%, rgb(93, 145, 121) 100%);
+  background: linear-gradient(180deg, #19c2b1 0%, #16ae9f 100%);
   border-radius: 12px;
   color: white;
   padding: 30px;
