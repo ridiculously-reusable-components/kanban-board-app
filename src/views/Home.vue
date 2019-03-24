@@ -196,11 +196,22 @@ export default {
 }
 
 .button {
-  padding: 12px;
-  border: 1px solid #ccc;
-  background-color: #eee;
-}
+  background: #eee;
+  color: #222;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 1em;
+  padding: 0.7em 1.5em;
+  border-radius: 6px;
+  box-shadow: 0 3px #006644;
+  margin: 0.25em auto;
+  display: inline-block;
 
+  &.is-primary {
+    background-color: #36B37E;
+    color: #fff;
+  }
+}
 
 .section--highlight {
   background: linear-gradient(180deg, rgb(93, 179, 163) 0%, rgb(93, 145, 121) 100%);
