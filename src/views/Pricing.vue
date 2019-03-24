@@ -183,7 +183,8 @@ export default {
 }
 
 .feature{
-  border-left: 1px solid rgb(15, 187, 136);
+  border: 1px solid rgb(15, 187, 136);
+  border-right: 0;
 
   &:last-child {
     border-right: 1px solid rgb(15, 187, 136);
